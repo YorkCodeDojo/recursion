@@ -1,7 +1,7 @@
 Recursion Exercises
 ===================
 
-Write recursive functions to do all of the following.  For extra bonus points, do it without mutable variables.
+Write recursive functions to do all of the following.  For extra bonus points, do it without mutable variables. Remember no loops are allowed.
 
 Work on whichever problems you like.  They generally get harder, and with less of an explanation, as they go.
 
@@ -33,26 +33,42 @@ The start of the sequence goes:
 
 ![fib](http://upload.wikimedia.org/math/c/a/b/cabe91689f6a1af616ace02827c6e89c.png)
 
-### 1.3 Sum a list
+
+
+## 2 Lists
+
+Hint,  you need a data structure which allows you to split up a list into it's HEAD and TAIL.
+For example the list a;b;c;d  has a head of a and a tail of b;c;d
+
+* In F# this is written as x::xs
+* In NodeJS this is written as [head, ...tail]
+* In C# you will need to write your own list class,  see Appendix 2
+
+### 2.1 Sum a list
 
 Sum the values in a list.
 
 The sum of [1, 2, 3, 4, 5] is 15.
 
-### 1.4 Count the items in a list
+### 2.2 Count the items in a list
 
 There are 5 items in the list [1, 2, 3, 4, 5].
 
-### 1.5 Filter a list
+Can you combine answers for exercises 1.3 and 1.4 into a single generic solution?
+
+### 2.3 Filter a list
 
 Filter a list of numbers to return only the even ones.
 
 The list [1, 2, 3, 4, 5, 6, 7, 8] when filtered should give [2, 4, 6, 8].
 
-Note: This is much easier in languages which have a recursive list structures.  In other languages, such as C#, it's a bit of a pain.  You could try using a Linked List - see Appendix A for an example. Or just move on to the next exercise..
+Is this solution generic?
 
-### 1.6 IsEven
 
+## 3. Harder
+
+### 3.1 Mutual Recursion
+ 
 Write the pair of functions isEven and isOdd using Mutual Recursion.  The pseudocode for this is:
 
     isEven(n)
@@ -63,9 +79,7 @@ Write the pair of functions isEven and isOdd using Mutual Recursion.  The pseudo
       if n is 0 then false
       else isEven(n - 1) 
 
-## 2 Intermediate
-
-### 2.1 Ackermann
+### 3.1 Ackermann
 
 Write the Ackermann function, defined for today's purposes as:
 
@@ -73,13 +87,17 @@ Write the Ackermann function, defined for today's purposes as:
 
 When called with the numbers 3 and 10, it should return 8189.  Enter much higher numbers and you could be waiting a while.
 
-### 2.2 Directory Search
+
+
+## 4 Trees
+
+### 4.1 Directory Search
 
 Write a function which searches all files and folders of a provided path for a file with a particular name.
 
-If your language makes this difficult, move onto the next exercise, which is similar.  And stop using Haskell.
+If your language makes this difficult, move onto the next exercise, which is similar. 
 
-### 2.3 Tree Search
+### 4.2 Tree Search
 
 Write a function which searches a tree-like data structure for a given item.
 
@@ -95,53 +113,69 @@ Alternatively you could write yourself some kind of tree structure and use that:
     
     let tree = Branch ("a", [Branch ("b", [Leaf "c"; Leaf "d"]); Branch ("e", [Leaf "f"; Leaf "g"])])
 
-If that all seems like too much work in your language, just move along.  And learn yourself a decent language!
+If that all seems like too much work in your language, just move along.  
 
-### 2.4 Tail Call List Count
+### 4.3 Binary Search
+
+Write a function which searches a binary tree in order to find the largest value held in a leaf node.  (5 in the example below)
+
+                             /\
+                           /\ /\
+                          1 3 5 2
+
+Write a function which searches a binary tree in order to find the smallest value held in a leaf node.
+
+Can you combine the two into a single generic function?
+
+
+### 5. Avoiding Stack Overflow
+
+### 5.1 Tail Call List Count
 
 Try counting the items in a list again, using your previous solution (if you wrote one), but in a list containing 100,000 items.
 
 A couple of things might happen:
-1. It will be extremely slow.  This is especially likely if you're using something like C# which doesn't have a recursive data type.  See Appendix B for tips on working with lists recursively in languages like C#.
+1. It will be extremely slow.  This is especially likely if you're using something like C# which doesn't have a recursive data type.  
+
 2. You might get a Stack Overflow.  (Some languages, in particula dynamic ones, don't seem to have this problem regardless).
 
-Write the function again, this time with a tail call (e.g. using an accumulator to hold the count).  Assuming your language supports TCO, you should be able to count on the list with 100,000 items.  (If using C#, see Appendix A for details on making sure TCO is enabled).
+Write the function again, this time with a tail call (e.g. using an accumulator to hold the count).  Assuming your language supports TCO, you should be able to count on the list with 100,000 items.  
 
-### 2.5 Tail Call Filter
+### 5.2 Tail Call Filter
 
 Try filtering a list with 100,000 items.  Again, this might be slow and you might get a Stack Overflow.
 
 Write a function to filter the list of numbers to get the evens, this time with a tail call.
 
-### 2.6 Continuations List Count
+### 5.3 Continuations List Count
 
 Count the items in a list again, this time using continuations.
 
-### 2.7 Continuations Filter
+### 5.4 Continuations Filter
 
 Filter a list of numbers again to get the evens, with a continuation.
 
-## 3 Advanced
+## 6 Advanced
 
-### 3.1 Continuations Fibonacci
+### 6.1 Continuations Fibonacci
 
 Do Fibonacci again, this time with continuations to avoid a Stack Overflow.
 
 (Note: The 'standard' recursive solution is so slow you probably won't want to wait to find out if it's worked..)
 
-### 3.2 Continuations Tree Search
+### 6.2 Continuations Tree Search
 
 Implement either the 'Directory search' or 'Tree Seach' again, this time with continuations so large structures can be searched.  Try creating a large structure to test it with.
 
-### 3.3 Continuations Ackermann
+### 6.3 Continuations Ackermann
 
 Ackermann, with continuations.  Try calling it with 3 and 12 to see if it's worked.
 
-### 3.4 Towers of Hannoi
+### 6.4 Towers of Hannoi
 
 Go and solve the [Towers of Hannoi puzzle](https://www.learneroo.com/modules/71/nodes/402) using recursion.
 
-### 3.5 Permutations
+### 6.5 Permutations
 
 Output all permutations of a passed string (or list of characters).
 
