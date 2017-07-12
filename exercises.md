@@ -3,7 +3,7 @@ Recursion Exercises
 
 Write recursive functions to do all of the following.  For extra bonus points, do it without mutable variables. Remember no loops are allowed.
 
-Work on whichever problems you like.  They generally get harder, and with less of an explanation, as they go.
+Work on whichever problems you like in any order.
 
 ### Credits
 Most of the content is from the slides prepared by Grant for Leeds Code Dojo.
@@ -21,7 +21,7 @@ Write a recursive function which calculates the factorial of a number, defined a
 
 ### 1.2 Fibonacci
 
-Calclate the Nth Fibonacci number:
+Calculate the Nth Fibonacci number:
 
 ![fibonacci](http://upload.wikimedia.org/math/7/2/7/727f7c8fa1794d5d2d5ad828adb829c8.png)
 
@@ -37,8 +37,8 @@ The start of the sequence goes:
 
 ## 2 Lists
 
-Hint,  you need a data structure which allows you to split up a list into it's HEAD and TAIL.
-For example the list a;b;c;d  has a head of a and a tail of b;c;d
+For this section you need a data structure which allows you to split up a list into it's HEAD and TAIL.
+For example the list a;b;c;d  has a head of 'a' and a tail of 'b;c;d'
 
 * In F# this is written as x::xs
 * In NodeJS this is written as [head, ...tail]
@@ -193,7 +193,7 @@ If your language doesn't have a recursive list structure, doing recursion with c
 * Building up a list by appending items onto the front can be difficult
 * Both of the above can be very inefficient
 
-With C#, I've found two workable solutions.  The best way is to define your own recursive data type, which might look a bit like this:
+With C#, The best way is to define your own recursive data type, which might look a bit like this:
 
     public class RecursiveList {
 
@@ -223,46 +223,6 @@ With C#, I've found two workable solutions.  The best way is to define your own 
             return new RecursiveList(null, null);
         }
 
-        public static RecursiveList FromRange(int from, int to) {
-            if (from >= to) 
-                return RecursiveList.Empty();
-            else
-                return new RecursiveList(from, RecursiveList.FromRange(++from, to));
-        }
     }
 
 Filling it up, printing it and/or comparing it to other things will be your main challenges, but it is efficient and works well with recursion.
-
-The best internal structure I've found is the Array.  Not because it is easy to use with recursion, but just because it's fairly efficient - although still around 10x slower than using the RecursiveList.  I created some extension methods to make it easier to work with:
-
-    public static class ArrayRecursionExtensions {
-        // Head gets the first item
-        public static int Head(this int[] list) {
-            return list[0];
-        }
-
-        // Tail gets the whole list excliding the first item.
-        public static int[] Tail(this int[] list) {
-            var tail = new int[list.Length - 1];
-            Array.Copy(list, 1, tail, 0, tail.Length);
-            return tail;
-        }
-
-        // Attaches the item onto the beginning of the list
-        public static int[] Cons(this int head, int[] tail) {
-            var newList = new int[tail.Length + 1];
-            Array.Copy(tail, 0, newList, 1, tail.Length);
-            newList[0] = head;
-            return newList;
-        }
-
-        // Creates an array from a range of integers, one element per number
-        public static int[] FromRange(int from, int to) {
-            return Enumerable.Range(from, to).ToArray();
-        }
-
-        // Prints each item of a linked list
-        public static string print(this int[] list) {
-            return list.Aggregate("", (output, item) => output + "," + item);
-        }
-    }
